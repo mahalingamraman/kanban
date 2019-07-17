@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatGridListModule, MatListModule, MatMenuModule,
@@ -15,6 +16,8 @@ import { DialogComponent } from './dialog/dialog.component';
 import {FormsModule} from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { CustomerReducer } from './store/customer.reducer';
+import { CustomerEffects } from './store/customer.effects';
 
 
 @NgModule({
@@ -40,9 +43,10 @@ import { HttpClientModule } from '@angular/common/http';
 
     // Store
     StoreModule.forRoot({
-      kanban: AppReducer
+      kanban: AppReducer,
+      applicationState: CustomerReducer
     }),
-  
+    EffectsModule.forRoot([CustomerEffects]),
     // Instrumentation must be imported after importing StoreModule (config is optional)
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
