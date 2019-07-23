@@ -18,12 +18,20 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomerReducer } from './store/customer.reducer';
 import { CustomerEffects } from './store/customer.effects';
+import { AppRoutingModule } from './app-routing.module';
+import { BoradReducer } from './store/board.reducer';
 
+import { CreateBoardComponent } from './boards/create-board/create-board.component';
+import { BoardsListComponent } from './boards/boards-list/boards-list.component';
+import { BoardDetailsComponent } from './boards/board-details/board-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogComponent
+    DialogComponent,
+    CreateBoardComponent,
+    BoardsListComponent,
+    BoardDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -40,11 +48,12 @@ import { CustomerEffects } from './store/customer.effects';
     MatDialogModule,
     MatFormFieldModule,
     FormsModule,
-
+    AppRoutingModule,
     // Store
     StoreModule.forRoot({
       kanban: AppReducer,
-      applicationState: CustomerReducer
+      applicationState: CustomerReducer,
+      board: BoradReducer
     }),
     EffectsModule.forRoot([CustomerEffects]),
     // Instrumentation must be imported after importing StoreModule (config is optional)

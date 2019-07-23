@@ -1,0 +1,12 @@
+<div #backlog class="pane" fxLayout="column" fxLayoutAlign=" center" >
+<div style="max-width:300px;">
+  <h3>Create Board</h3>
+  <div class="form-group">
+    <input class="form-control" type="text" placeholder="id" #id>
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" placeholder="Board name" #name>
+  </div>
+  <button class="btn btn-success" (click)="saveBoard(id.value,name.value)">Save Board</button>
+</div>
+</div>

@@ -9,10 +9,12 @@ import {
   ADD_BACKLOG, ADD_DOING, ADD_DONE, CREATE_ITEM, CreateItem, default as PayloadAction, REM_BACKLOG, REM_DOING,
   REM_DONE
 } from './store/app.actions';
-import {DialogComponent} from './dialog/dialog.component';
-import {MatDialog} from '@angular/material';
-import {animate, style, transition, trigger} from '@angular/animations';
-
+import * as CustomerActions from './store/customer.actions';
+import { DialogComponent } from './dialog/dialog.component';
+import { MatDialog } from '@angular/material';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CustomerState } from './store/customer.state';
+import { Customer } from './store/customer.modal';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -33,23 +35,27 @@ import {animate, style, transition, trigger} from '@angular/animations';
 export class AppComponent implements OnInit {
 
   currentCardNum = 0;
-  itemEntities$: Observable<object>;
-  backlogList$: Observable<Item[]>;
-  doingList$: Observable<Item[]>;
-  doneList$: Observable<Item[]>;
+  customers$: Observable<any>;
+  customers: Customer[];
 
-
-
-  constructor(private store: Store<AppState>, public dialog: MatDialog) {}
-
-  ngOnInit(): void {
-    this.itemEntities$ = this.store.select(getEntities);
-    this.backlogList$ = this.store.select(getBacklog);
-    this.doingList$ = this.store.select(getDoing);
-    this.doneList$ = this.store.select(getDone);
+  constructor(private store: Store<AppState>, public dialog: MatDialog) {
+    console.log('########################');
+    console.log(this.store.select('applicationState'));
+    console.log('########################');
+    this.customers$ = this.store.select('applicationState');
   }
 
+  ngOnInit() {
+    this.getCustomers();
+    this.customers$.subscribe((state: CustomerState) => this.customers = state.customers);
+  }
 
+  getCustomers() {
+    this.store.dispatch(new CustomerActions.loadCustomersAction());
+    console.log('########################');
+    console.log(this.store.select('applicationState'));
+    console.log('########################');
+  }
   createItem(text: string) {
     const card = {
       id: this.currentCardNum++,

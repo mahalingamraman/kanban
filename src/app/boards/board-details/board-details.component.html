@@ -1,0 +1,7 @@
+<div *ngIf="board">
+	<div>
+		<label>Name: </label> {{board.name}}
+	</div>
+	<span class="button is-small btn-danger" (click)='removeBoard(board.id)'>Delete</span>
+ 	<hr/>
+</div>

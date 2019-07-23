@@ -1,0 +1,8 @@
+<div #backlog class="pane" fxLayout="column" fxLayoutAlign=" center" >
+      <div *ngIf="boards">
+  <h3>Boards</h3>
+  <div *ngFor="let board of boards | async">
+    <app-board-details [board]='board'></app-board-details>
+  </div>
+</div>
+</div>

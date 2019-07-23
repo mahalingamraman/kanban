@@ -11,7 +11,7 @@ const httpOptions = {
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
-  private baseUrl = 'http://localhost:3000/customers'
+  private baseUrl = 'http://localhost:3000/users'
   constructor(private http: HttpClient) {}
 
   /**
